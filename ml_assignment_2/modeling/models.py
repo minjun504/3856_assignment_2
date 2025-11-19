@@ -10,6 +10,7 @@ class Models(ABC):
         self.param_dist = param_dist
         self.n_trials = n_trials
         self.hp_method=hp_method
+        self.best_params = None
         self.model = None
         self.clf = None
 
@@ -75,7 +76,13 @@ class Models(ABC):
             n_jobs=-1
         )
         self.model = search.fit(X_train, y_train)
+        self.best_params = search.best_params_
         return self.model.best_estimator_
+    
+    def get_best_params(self):
+        if self.best_params is None:
+            raise ValueError("No hyperparameters were found.")
+        return self.best_params
 
     def train_pred(self, X_train):
         if self.model is None:
