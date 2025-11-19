@@ -68,14 +68,26 @@ post_prune_tree_params = {
             }
 
 random_forest_params = {
-    "n_estimators": np.arange(1, 400),
+    "n_estimators": np.arange(50, 501, 10),  
+    "max_depth": np.arange(3, 21),          
+    "min_samples_split": np.arange(2, 51),                 
+    "min_samples_leaf": np.arange(1, 21),
+    "max_features": ["sqrt", "log2", None],                 
+    "bootstrap": [True, False],
     "criterion": ["gini", "entropy"]
 }
 
+
 gradient_boost_params = {
-    "n_estimators": np.arange(1, 400),
-    "learning_rate": np.linspace(0.0001, 0.2, 1000)
+    "n_estimators": np.arange(50, 501, 10),         
+    "learning_rate": np.linspace(0.01, 0.3, 30),      
+    "max_depth": np.arange(3, 11),                   
+    "min_samples_split": np.arange(2, 51),  
+    "min_samples_leaf": np.arange(1, 21),
+    "subsample": np.linspace(0.5, 1.0, 6),                
+    "max_features": ["sqrt", "log2", None],
 }
+
 
 xgboost_params = {
     "n_estimators": np.arange(50, 501, 50),      
