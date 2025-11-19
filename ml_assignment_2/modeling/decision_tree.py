@@ -9,7 +9,7 @@ class DecisionTree(Models):
     def classifier(self):
         return DecisionTreeClassifier(random_state=self.random_state)
     
-    def get_detaul_params(self):
+    def get_default_params(self):
         if self.prune == "pre":
             return pre_prune_tree_params
         elif self.prune == "post":
