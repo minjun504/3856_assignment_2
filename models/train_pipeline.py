@@ -4,7 +4,7 @@ from ml_assignment_2.modeling.decision_tree import DecisionTree
 from ml_assignment_2.modeling.random_forest import RandomForest
 from ml_assignment_2.modeling.gradient_boost import GradientBoost
 from ml_assignment_2.modeling.xgboost import XGBoost
-from ml_assignment_2.dataset import load_and_split_data
+from ml_assignment_2.data_loader import load_and_split_data
 from ml_assignment_2.config import RESULTS_DIR
 
 
