@@ -4,7 +4,7 @@ from src.data_loader import load_and_split_data
 import matplotlib.pyplot as plt
 import pandas as pd
 
-X_train, X_test, y_train, y_test = load_and_split_data(i, file_name="abalone.data", test_size=0.2)
+X_train, X_test, y_train, y_test = load_and_split_data(random_state=0, file_name="abalone.data", test_size=0.2)
 n_list = [10, 50, 100, 200, 300]
 
 metrics_over_n = {
@@ -15,10 +15,13 @@ metrics_over_n = {
     "test_auc": []
 }
 
+rf = RandomForest(random_state=0)
+rf.train_optuna(X_train, y_train)
+best_params = rf.get_best_params()
+
+
 for n in n_list:
-    rf = RandomForest(random_state=0, n_estimator=None)
-    rf.train_optuna(X_train, y_train)
-    best_params = rf.get_best_params()
+    rf = RandomForest(random_state=0, n_estimator=n)
     rf.train_with_fixed_estimator(X_train, y_train, best_params, n_estimators=n)
     results = rf.evaluate(X_train, X_test, y_train, y_test)
 

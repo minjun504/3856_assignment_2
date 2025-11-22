@@ -7,7 +7,6 @@ from src.config import RESULTS_DIR
 model_names = {"pre_prune", "post_prune"}
 metrics = {name: {"train_f1": [], "test_f1": [], "train_auc": [], "test_auc": []} for name in model_names}
 
-
 for i in range(10):
     models = {
         "pre_prune": DecisionTree(prune="pre", random_state=i),
