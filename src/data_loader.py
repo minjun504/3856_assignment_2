@@ -1,8 +1,9 @@
 import pandas as pd 
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder
-from ml_assignment_2.config import RAW_DIR, PROCESSED_DIR
+from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
+from sklearn.decomposition import PCA
+from src.config import RAW_DIR, PROCESSED_DIR
 
 def load_and_split_data(random_state, file_name, test_size=0.2, save_csv=False):
     features = ["sex", "length", "diameter", "height", "whole_weight", 
@@ -38,6 +39,16 @@ def load_and_split_data(random_state, file_name, test_size=0.2, save_csv=False):
         print(f"Data is processed and saved to {PROCESSED_DIR}")
     
     return X_train, X_test, y_train, y_test
+
+def apply_pca(X_train, X_test, variance_ratio, random_state):
+    scaler = MinMaxScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
+    pca = PCA(n_components=variance_ratio, random_state=random_state)
+    X_train_pca = pca.fit_transform(X_train_scaled)
+    X_test_pca = pca.transform(X_test_scaled)
+    return X_train_pca, X_test_pca
 
 if __name__ == "__main__":
     pass
